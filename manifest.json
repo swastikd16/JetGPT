@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "JetGPT",
+  "version": "1.0.0",
+  "description": "Make your ChatGPT as fast as a jet.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*"
+  ],
+  "action": {
+    "default_title": "JetGPT",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
