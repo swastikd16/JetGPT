@@ -14,15 +14,20 @@ const DEFAULT_STATS = {
 const MIN_MESSAGES = 1;
 const MAX_MESSAGES = 1000;
 const PRESET_VALUES = [5, 10, 15];
+const CHATGPT_HOME_URL = "https://chatgpt.com/";
+const SUPPORTED_HOSTS = ["chatgpt.com", "chat.openai.com"];
 
 const enabledInput = document.getElementById("enabled");
 const visibleCountInput = document.getElementById("visibleCount");
 const limitControls = document.getElementById("limitControls");
+const supportedView = document.getElementById("supportedView");
+const unsupportedView = document.getElementById("unsupportedView");
 const preview = document.getElementById("preview");
 const savedPercent = document.getElementById("savedPercent");
 const totalMessages = document.getElementById("totalMessages");
 const autoDisableNote = document.getElementById("autoDisableNote");
 const showAllBtn = document.getElementById("showAllBtn");
+const openChatgptBtn = document.getElementById("openChatgptBtn");
 const presetButtons = Array.from(document.querySelectorAll(".preset-btn"));
 
 const clampCount = (value) => {
@@ -90,7 +95,36 @@ const setEnabledUI = (enabled) => {
   limitControls.classList.toggle("is-disabled", !enabled);
 };
 
+const isSupportedUrl = (urlString) => {
+  if (!urlString) {
+    return false;
+  }
+
+  try {
+    const { hostname } = new URL(urlString);
+    return SUPPORTED_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`));
+  } catch {
+    return false;
+  }
+};
+
+const isSupportedActiveTab = async () => {
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  return isSupportedUrl(tabs[0]?.url);
+};
+
+const setPopupMode = (isSupportedTab) => {
+  supportedView.classList.toggle("is-hidden", !isSupportedTab);
+  unsupportedView.classList.toggle("is-hidden", isSupportedTab);
+};
+
 const init = async () => {
+  const isSupportedTab = await isSupportedActiveTab();
+  setPopupMode(isSupportedTab);
+  if (!isSupportedTab) {
+    return;
+  }
+
   const stored = await chrome.storage.local.get({
     ...DEFAULT_SETTINGS,
     [STATS_KEY]: DEFAULT_STATS,
@@ -164,6 +198,16 @@ showAllBtn.addEventListener("click", async () => {
   enabledInput.checked = false;
   setEnabledUI(false);
   await saveSettings({ enabled: false });
+});
+
+openChatgptBtn.addEventListener("click", async () => {
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (tabs[0]?.id) {
+    await chrome.tabs.update(tabs[0].id, { url: CHATGPT_HOME_URL });
+  } else {
+    await chrome.tabs.create({ url: CHATGPT_HOME_URL });
+  }
+  window.close();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {

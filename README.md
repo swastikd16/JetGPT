@@ -11,6 +11,7 @@ A lightweight Chrome extension that keeps only the most recent ChatGPT messages 
 - Live `% Memory Saved` indicator based on hidden messages vs total messages.
 - `Show all messages` quick action.
 - Auto-disables limiting for chats with `<= 8` messages unless your selected limit is lower.
+- Shows a guided `Open ChatGPT` prompt when used outside ChatGPT websites.
 - Live updates without reloading the page.
 - Works on `chatgpt.com` and `chat.openai.com`.
 - Minimal, modern popup UI.
@@ -31,4 +32,3 @@ A lightweight Chrome extension that keeps only the most recent ChatGPT messages 
 ## Notes
 
 - Older messages are hidden in the page view (not deleted from your account).
-- If OpenAI changes ChatGPT DOM structure in the future, selector updates may be needed.

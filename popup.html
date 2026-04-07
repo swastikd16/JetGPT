@@ -10,47 +10,58 @@
     <main class="panel">
       <header class="panel__header">
         <p class="eyebrow">Performance</p>
-        <h1>JetGPT</h1>
+        <div class="brand-row">
+          <img class="brand-logo" src="icons/icon128.png" alt="JetGPT logo" />
+          <h1>JetGPT</h1>
+        </div>
         <p class="subtitle">Make your ChatGPT as fast as a jet.</p>
       </header>
 
-      <p class="message-count">Messages in this chat: <span id="totalMessages">0</span></p>
-
-      <section class="stat-card" aria-live="polite">
-        <div class="stat-card__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M13 2L6 13h5l-1 9 8-12h-5l0-8z"></path>
-          </svg>
-        </div>
-        <div>
-          <p class="stat-card__value" id="savedPercent">0%</p>
-          <p class="stat-card__label">Memory Saved</p>
-        </div>
+      <section class="unsupported-card is-hidden" id="unsupportedView" aria-live="polite">
+        <p class="unsupported-title"><span class="unsupported-icon" aria-hidden="true">!</span> Non-ChatGPT Tab Detected</p>
+        <p class="unsupported-text">JetGPT only works on <strong>chatgpt.com</strong>. Please navigate there to use the extension.</p>
+        <button type="button" class="open-chatgpt-btn" id="openChatgptBtn">Open ChatGPT</button>
       </section>
 
-      <section class="control-row">
-        <label class="switch" for="enabled">
-          <input id="enabled" type="checkbox" />
-          <span class="switch__track" aria-hidden="true"></span>
-          <span class="switch__label">Enable message limit</span>
-        </label>
-      </section>
+      <section id="supportedView">
+        <p class="message-count">Messages in this chat: <span id="totalMessages">0</span></p>
 
-      <section class="control-group" id="limitControls">
-        <p class="control-label">Recent messages</p>
-        <div class="preset-buttons" role="group" aria-label="Message count presets">
-          <button type="button" class="preset-btn" data-preset="5">5</button>
-          <button type="button" class="preset-btn" data-preset="10">10</button>
-          <button type="button" class="preset-btn" data-preset="15">15</button>
-          <button type="button" class="preset-btn" data-preset="custom">Custom</button>
-        </div>
-        <div class="control-row control-row--tight">
-          <label for="visibleCount">Count</label>
-          <input id="visibleCount" type="number" min="1" max="1000" step="1" />
-        </div>
-        <p class="hint" id="preview">Keeping the last 30 messages visible.</p>
-        <p class="hint hint--soft" id="autoDisableNote">Auto-disables at 8 or fewer messages unless your limit is lower.</p>
-        <button type="button" class="show-all-btn" id="showAllBtn">Show all messages</button>
+        <section class="stat-card" aria-live="polite">
+          <div class="stat-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M13 2L6 13h5l-1 9 8-12h-5l0-8z"></path>
+            </svg>
+          </div>
+          <div>
+            <p class="stat-card__value" id="savedPercent">0%</p>
+            <p class="stat-card__label">Memory Saved</p>
+          </div>
+        </section>
+
+        <section class="control-row">
+          <label class="switch" for="enabled">
+            <input id="enabled" type="checkbox" />
+            <span class="switch__track" aria-hidden="true"></span>
+            <span class="switch__label">Enable message limit</span>
+          </label>
+        </section>
+
+        <section class="control-group" id="limitControls">
+          <p class="control-label">Recent messages</p>
+          <div class="preset-buttons" role="group" aria-label="Message count presets">
+            <button type="button" class="preset-btn" data-preset="5">5</button>
+            <button type="button" class="preset-btn" data-preset="10">10</button>
+            <button type="button" class="preset-btn" data-preset="15">15</button>
+            <button type="button" class="preset-btn" data-preset="custom">Custom</button>
+          </div>
+          <div class="control-row control-row--tight">
+            <label for="visibleCount">Count</label>
+            <input id="visibleCount" type="number" min="1" max="1000" step="1" />
+          </div>
+          <p class="hint" id="preview">Keeping the last 30 messages visible.</p>
+          <p class="hint hint--soft" id="autoDisableNote">Auto-disables at 8 or fewer messages unless your limit is lower.</p>
+          <button type="button" class="show-all-btn" id="showAllBtn">Show all messages</button>
+        </section>
       </section>
 
       <p class="legal-note">This extension is an independent project and is not affiliated with, endorsed by, or sponsored by OpenAI or ChatGPT.</p>
