@@ -199,6 +199,10 @@ body {
   gap: 12px;
 }
 
+.control-row--aggressive {
+  margin-top: 10px;
+}
+
 .control-label {
   margin: 0;
   font-size: 13px;

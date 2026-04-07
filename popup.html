@@ -58,6 +58,14 @@
             <label for="visibleCount">Count</label>
             <input id="visibleCount" type="number" min="1" max="1000" step="1" />
           </div>
+          <section class="control-row control-row--aggressive">
+            <label class="switch" for="aggressiveMode">
+              <input id="aggressiveMode" type="checkbox" />
+              <span class="switch__track" aria-hidden="true"></span>
+              <span class="switch__label">Aggressive mode</span>
+            </label>
+          </section>
+          <p class="hint hint--soft">Aggressive mode removes hidden messages from the DOM. Refresh the chat page to restore removed messages.</p>
           <p class="hint" id="preview">Keeping the last 30 messages visible.</p>
           <p class="hint hint--soft" id="autoDisableNote">Auto-disables at 8 or fewer messages unless your limit is lower.</p>
           <button type="button" class="show-all-btn" id="showAllBtn">Show all messages</button>

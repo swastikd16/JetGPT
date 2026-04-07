@@ -1,6 +1,7 @@
 const DEFAULT_SETTINGS = {
   enabled: true,
   visibleCount: 30,
+  aggressiveMode: false,
 };
 
 const STATS_KEY = "cstStats";
@@ -18,6 +19,7 @@ const CHATGPT_HOME_URL = "https://chatgpt.com/";
 const SUPPORTED_HOSTS = ["chatgpt.com", "chat.openai.com"];
 
 const enabledInput = document.getElementById("enabled");
+const aggressiveModeInput = document.getElementById("aggressiveMode");
 const visibleCountInput = document.getElementById("visibleCount");
 const limitControls = document.getElementById("limitControls");
 const supportedView = document.getElementById("supportedView");
@@ -86,6 +88,10 @@ const saveSettings = async (settingsPatch) => {
     nextPatch.visibleCount = clampCount(Number(settingsPatch.visibleCount));
   }
 
+  if (Object.hasOwn(settingsPatch, "aggressiveMode")) {
+    nextPatch.aggressiveMode = Boolean(settingsPatch.aggressiveMode);
+  }
+
   if (Object.keys(nextPatch).length > 0) {
     await chrome.storage.local.set(nextPatch);
   }
@@ -136,6 +142,7 @@ const init = async () => {
   };
 
   enabledInput.checked = Boolean(settings.enabled);
+  aggressiveModeInput.checked = Boolean(settings.aggressiveMode);
   setEnabledUI(enabledInput.checked);
   syncControls(Number(settings.visibleCount));
   renderStats(stored[STATS_KEY] || DEFAULT_STATS);
@@ -145,6 +152,10 @@ enabledInput.addEventListener("change", async () => {
   const enabled = enabledInput.checked;
   setEnabledUI(enabled);
   await saveSettings({ enabled });
+});
+
+aggressiveModeInput.addEventListener("change", async () => {
+  await saveSettings({ aggressiveMode: aggressiveModeInput.checked });
 });
 
 visibleCountInput.addEventListener("focus", () => {
@@ -223,6 +234,10 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 
   if (changes.visibleCount) {
     syncControls(Number(changes.visibleCount.newValue));
+  }
+
+  if (changes.aggressiveMode) {
+    aggressiveModeInput.checked = Boolean(changes.aggressiveMode.newValue);
   }
 
   if (changes[STATS_KEY]) {
