@@ -14,7 +14,7 @@ A lightweight Chrome extension that keeps only the most recent ChatGPT messages 
 - Optional `Aggressive mode` that removes older hidden messages from the DOM for stronger performance.
 - Shows a guided `Open ChatGPT` prompt when used outside ChatGPT websites.
 - Live updates without reloading the page.
-- Works on `chatgpt.com` and `chat.openai.com`.
+- Works only on `chatgpt.com`.
 - Minimal, modern popup UI.
 
 ## Install (Developer Mode)

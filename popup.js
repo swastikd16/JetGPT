@@ -16,7 +16,7 @@ const MIN_MESSAGES = 1;
 const MAX_MESSAGES = 1000;
 const PRESET_VALUES = [5, 10, 15];
 const CHATGPT_HOME_URL = "https://chatgpt.com/";
-const SUPPORTED_HOSTS = ["chatgpt.com", "chat.openai.com"];
+const SUPPORTED_HOSTS = ["chatgpt.com"];
 
 const enabledInput = document.getElementById("enabled");
 const aggressiveModeInput = document.getElementById("aggressiveMode");

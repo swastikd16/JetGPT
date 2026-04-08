@@ -11,8 +11,7 @@
   },
   "permissions": ["storage", "tabs"],
   "host_permissions": [
-    "https://chatgpt.com/*",
-    "https://chat.openai.com/*"
+    "https://chatgpt.com/*"
   ],
   "action": {
     "default_title": "JetGPT",
@@ -27,8 +26,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://chatgpt.com/*",
-        "https://chat.openai.com/*"
+        "https://chatgpt.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"

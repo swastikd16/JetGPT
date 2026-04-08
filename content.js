@@ -8,6 +8,7 @@ const HIDDEN_CLASS = "cst-hidden-turn";
 const STYLE_ID = "cst-hidden-style";
 const STATS_KEY = "cstStats";
 const LOW_MESSAGE_THRESHOLD = 8;
+const SUPPORTED_HOST = "chatgpt.com";
 const APPLY_DEBOUNCE_MS = 180;
 const MIN_APPLY_INTERVAL_MS = 120;
 const MUTATION_SKIP_WINDOW_MS = 80;
@@ -253,6 +254,10 @@ const onMutations = (records) => {
 };
 
 const init = async () => {
+  if (location.hostname !== SUPPORTED_HOST && !location.hostname.endsWith(`.${SUPPORTED_HOST}`)) {
+    return;
+  }
+
   ensureStyle();
   const stored = await chrome.storage.local.get(DEFAULT_SETTINGS);
   currentSettings = {
